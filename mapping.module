@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+
+use Drupal\mapping\Plugin\Type\MapManager;
+
+function mapping_menu() {
+  return array(
+    'map-list' => array(
+      'page callback' => 'mapping_map_list',
+      'title' => 'Map List',
+      'access arguments' => array('access content'),
+    ),
+    'map-list/render' => array(
+      'page callback' => 'mapping_map_render',
+      'title' => 'Map Render',
+      'access arguments' => array('access content'),
+    ),
+  );
+}
+
+function mapping_map_list() {
+  $type = new MapManager();
+  dpm($type->getDefinitions());
+  return "HI";
+}
+
+function mapping_map_render() {
+  $type = new MapManager();
+  $map_plugin = $type->createInstance('map_basic');
+  return $map_plugin->build();
+}
