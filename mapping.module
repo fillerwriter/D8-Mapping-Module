@@ -22,13 +22,13 @@ function mapping_menu() {
 }
 
 function mapping_map_list() {
-  $type = new MapManager();
+  $type = new MapManager(drupal_container()->getParameter('container.namespaces'));
   dpm($type->getDefinitions());
   return "HI";
 }
 
 function mapping_map_render() {
-  $type = new MapManager();
+  $type = new MapManager(drupal_container()->getParameter('container.namespaces'));
   $map_plugin = $type->createInstance('map_basic');
   return $map_plugin->build();
 }
