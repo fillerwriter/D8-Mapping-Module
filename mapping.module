@@ -4,8 +4,6 @@
  * Implements hook_menu().
  */
 
-use Drupal\mapping\Plugin\Type\MapManager;
-
 function mapping_menu() {
   return array(
     'map-list' => array(
@@ -22,13 +20,13 @@ function mapping_menu() {
 }
 
 function mapping_map_list() {
-  $type = new MapManager(drupal_container()->getParameter('container.namespaces'));
+  $type = drupal_container()->get('plugin.manager.mapping');
   dpm($type->getDefinitions());
   return "HI";
 }
 
 function mapping_map_render() {
-  $type = new MapManager(drupal_container()->getParameter('container.namespaces'));
+  $type = drupal_container()->get('plugin.manager.mapping');
   $map_plugin = $type->createInstance('map_basic');
   return $map_plugin->build();
 }
